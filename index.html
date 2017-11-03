@@ -1,0 +1,62 @@
+<!--
+> Muaz Khan     - www.MuazKhan.com
+> MIT License   - www.WebRTC-Experiment.com/licence
+> Documentation - github.com/muaz-khan/getScreenId
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>getScreenId | Capture Screen on Any Domain!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="author" type="text/html" href="https://plus.google.com/+MuazKhan">
+    <meta name="author" content="Muaz Khan">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <link rel="stylesheet" href="https://cdn.webrtc-experiment.com/style.css">
+
+    <!-- script used to capture sourceId of the screen -->
+    <!-- <script src="https://cdn.webrtc-experiment.com/getScreenId.js"></script> -->
+    <script src="getScreenId.js"></script>
+    <!-- <script src="Screen-Capturing.js"></script> -->
+</head>
+
+<body>
+    <video controls autoplay width="300" height="300"></video>
+    <script>
+        getScreenId(function (error, sourceId, screen_constraints) {
+            console.log(error);
+            console.log(sourceId);
+            console.log(screen_constraints);
+            navigator.getUserMedia = navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
+            navigator.getUserMedia(screen_constraints, function (stream) {
+                document.querySelector('video').src = URL.createObjectURL(stream);
+            }, function (error) {
+                console.error(error);
+            });
+        });
+
+        // getScreenConstraints(function (error, screen_constraints) {
+        //     console.log(error);
+        //     console.log(screen_constraints);
+        //     if (error) {
+        //         return alert(error);
+        //     }
+
+        //     navigator.getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+        //     navigator.getUserMedia({
+        //         video: screen_constraints
+        //     }, function (stream) {
+        //         var video = document.querySelector('video');
+        //         video.src = URL.createObjectURL(stream);
+        //         video.play();
+        //     }, function (error) {
+        //         console.log(JSON.stringify(error, null, '\t'));
+        //     });
+        // });
+    </script>
+</body>
+
+</html>
